@@ -1,0 +1,329 @@
+/*
+Written By Thomas Bourgeois
+CSC 130 Project 2
+November 2021
+
+
+Weather App Styles
+*/
+
+
+body {
+	font-size: 20px;
+	margin: 0;
+}
+
+#background_img, #background_vid {
+	position: fixed;
+	min-width: 100%;
+	min-height: 100%;
+	top: 0;
+	left: 0;
+}
+
+hr {
+	width: 100%;
+}
+
+#title {
+	position: relative;
+	text-align: center;
+	font-family: helvetica;
+	font-style: italic;
+	font-size: 75px;
+	color: black;
+	text-decoration: underline;
+}
+
+.navbar {
+	font-family: arial;
+	position: relative;
+	list-style: none;
+
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	background-color: darkgrey;
+}
+
+#homelink {
+	color: black;
+}
+
+.navbar a {
+	display: block;
+	text-decoration: none;
+	padding: 10px 25px 10px 25px;
+	font-size: 20px;
+}
+
+#home:hover  {
+	background-color: slategrey;
+}
+
+.vl { /*Rule for vertical line*/
+	border-left: 1px solid black;
+	height: auto;
+}
+
+#rightVL, #calls, #callsLeft, #snow, #rain, #uv{
+	display: none;
+}
+
+
+#curtime, #calls {
+	color: black;
+	padding: 10px;
+}
+
+.box {
+	position: relative;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-around;
+	background-color:	rgba(255, 238, 230, 0.8);
+	border: 5px solid grey;
+	border-radius: 15px;
+
+	margin: 3em;
+	padding: 1em 2em 2em 2em;
+	text-align: left;
+}
+
+/* handling anchor tags */
+.box a, #copyright a {
+	color: blue;
+}
+
+.box a:focus, #copyright a:focus{
+	opacity: 0.5;
+}
+
+.box a:hover, #copyright a:hover {
+	opacity: 0.5;
+}
+
+
+#intro {
+	margin: 5% 20% 0% 20%;
+}
+
+#introp2 {
+	font-size: 25px;
+	margin-bottom: 0;
+}
+
+div p { /* paragraphs inside a div */
+	text-align: center;
+	margin-left: 15px;
+}
+
+.container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+}
+
+.sub-con {
+	display: flex;
+	align-items: center;
+}
+
+.sub-con div + div {
+	margin-left: 30px;
+}
+
+#byCity {
+	margin-left: 15%;
+	margin-right: 15%;
+}
+
+#byGPS {
+	margin-left: 25%;
+	margin-right: 25%;
+}
+
+button {
+	font-size: 20px;
+	padding: 10px;
+	border: 1px solid black;
+	border-radius: 10px;
+	background-color: lightgrey;
+}
+
+button:hover {
+	background-color: grey;
+}
+
+
+input {
+	margin-left: 10px;
+	padding: 5px;
+
+	width: 160px;
+	height: 20px;
+	font-size: 16px;
+}
+
+
+.content {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+
+.info {
+	margin-left: 10px;
+	color: blue;
+}
+
+#showinfo {
+	display: none;
+	margin: 2em 4em 0em 4em;
+	font-size: 30px;
+}
+
+#weather {
+	display: flex;
+	align-items: center;
+}
+
+#weathericon {
+	width: 75px;
+	height: auto;
+}
+
+
+#method, #location, #gps, #timezone, #localtime, #temp, #weathericon, #snow, #rain, #cloudcoverage, #humidity, #aqi, #pressure, #vis, #seapressure, #uv  {
+	margin-right: 1.5em;
+}
+
+#wind_compass {
+	width: 175px;
+	height: auto;
+}
+
+.pair {
+	display: inline-flex;
+	/* flex-flow: row; */
+	align-items: center;
+}
+
+canvas {
+	margin-left: 20px;
+}
+
+
+#error_msg {
+	display: none;
+	text-align: center;
+	padding: 40px;
+	font-size: 30px;
+	color: red;
+	margin: 1em 3.5em 0em 3.5em;
+	border-color: red;
+	background-color: white;
+}
+
+#copyright {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: #cccccc;
+
+	font-family: arial;
+	width: 100%;
+	font-size: 12px;
+	padding-left: 5px;
+}
+
+
+@media screen and (max-width: 1460px) {
+
+	#introp2 {
+		margin-top: 15px;
+	}
+
+	div p {
+		margin-bottom: 10px;
+	}
+
+
+	.sub-con div + div {
+		margin-left: 0px;
+		margin-top: 5px;
+	}
+
+	.sub-con {
+		display: flex;
+		flex-flow: column;
+	}
+
+}
+
+@media screen and (max-width: 1200px) {
+
+
+	.navbar {
+		text-align: center;
+		flex-flow: column wrap;
+		font-size: 20px;
+	}
+
+	#title {
+		font-size: 35px;
+	}
+
+
+	body, button {
+		font-size: 16px;
+	}
+
+	#introp2 {
+		font-size: 18px;
+	}
+
+	input {
+		font-size: 12px;
+		max-width: 50%;
+	}
+
+	button {
+		padding: 5px 15px;
+	}
+
+	#showinfo {
+		font-size: 20px;
+	}
+
+	#compass {
+		width: 120px;
+	}
+
+	#error_msg {
+		font-size: 20px;
+		padding: 30px;
+	}
+
+}
+
+@media screen and (max-width: 600px) {
+
+	body {
+		display: flex;
+		flex-flow: column wrap;
+		justify-content: center;
+	}
+
+	#intro, #byGPS, #byCity, #showinfo, #error_msg  {
+		margin: 2em;
+	}
+
+	.box {
+		max-width: 450px;
+	}
+
+	#error_msg {
+		padding: 20px;
+	}
+}

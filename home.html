@@ -1,0 +1,196 @@
+<!--
+Written By Thomas Bourgeois
+CSC 130 Project 2
+November 2021
+
+Weather App HTML code
+-->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+  <meta charset="utf-8">
+  <title>Weather App</title>
+
+
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!-- google JQuery API -->
+  <script src="main_js.js" type="text/javascript" defer></script>
+  <script type="text/javascript" src="clock.js" defer></script>
+
+</head>
+
+<body>
+
+  <!-- background video -->
+  <video autoplay muted loop id="background_vid">
+    <source src="backgrounds/default.mp4" type="video/mp4" id="background">
+  </video>
+
+  <!-- background images -->
+  <img id="background_img">
+
+  <!-- Navigation bar -->
+  <div class="navbar">
+    <div class="navbar">
+      <div id="home"><a id="homelink" href="home.html">Home</a></div>
+      <div class="vl"></div>
+      <div class="info" id="curtime"></div>
+    </div>
+    <div class="navbar">
+      <div class="vl" id="rightVL"></div>
+      <div class="info" id="calls"></div>
+    </div>
+  </div>
+
+  <h1 id="title">Welcome to the Weather Network!</h1> <!-- Title -->
+
+  <!-- introduction section -->
+  <div class="box" id="intro">
+    <p>
+      This weather page connects to the <a href="https://www.weatherbit.io/" target="_blank">Weatherbit API</a> to get you the current weather for a desired location. This amazing API provides you with over 300 000 cities around the world.<br>Note
+      that the information may vary for local stations, this is due to <a class="links" href="http://www.enviropedia.org.uk/Climate/Local_Climates.php" target="_blank">local climates</a> in a given region.
+    </p>
+    <p>
+      Interested in learning more about APIs?<br>Check out this link <a href="https://www.mulesoft.com/resources/api/what-is-an-api">What is an API?</a>
+    </p>
+    <p id="introp2">Enter the information below to see the weather in your city!</p>
+  </div>
+
+  <!-- error messages display -->
+  <div class="box" id="error_msg"></div>
+
+  <!-- displaying weather info -->
+  <div class="box" id="showinfo">
+    <div class="content">
+      Method:<div class="info" id="method"></div>
+    </div>
+    <hr>
+    <div class="content">
+      Location:<div class="info" id="location"></div>
+      <div class="pair" id="gps">
+        GPS Coordinates:<div class="info" id="gpsinfo"></div>
+      </div>
+      <div class="pair">
+        Airport ID:<div class="info" id="stationid"></div>
+      </div>
+    </div>
+    <div class="content">
+      Timezone:<div class="info" id="timezone"></div>
+      <div class="pair">
+        Local Time:<div class="info" id="localtime"></div>
+      </div>
+      <div class="pair">
+        Last Observed Time:<div class="info" id="obs_time"></div>
+      </div>
+    </div>
+    <hr>
+    <div class="content" id="weather">
+      Temperature:<div class="info" id="temp"></div>
+      <div class="pair">
+        Weather: <div class="info" id="weatherdesc"></div>
+        <img alt="" id="weathericon">
+      </div>
+      <div id="snow">
+        Snow Fall:<div class="info" id="snowAmt"></div>
+      </div>
+      <div id="rain">
+        Rain Fall:<div class="info" id="rainAmt"></div>
+      </div>
+      <div class="pair">
+        Cloud Coverage:<div class="info" id="cloudcoverage"></div>
+      </div>
+      <div class="pair">
+        Wind: <div class="info" id="windspeed"></div>
+        <div class="info" id="wind_direc"></div>
+        <canvas id="compass" width="175px" height="175px"></canvas>
+      </div>
+    </div>
+    <hr>
+
+    <div class="content">
+      <div class="pair">
+        Humidity:<div class="info" id="humidity"></div>
+      </div>
+      <div class="pair">
+        Air Quality Index:<div class="info" id="aqi"></div>
+      </div>
+      <div class="pair">
+        Air Pressure: <div class="info" id="pressure"></div>
+      </div>
+      <div class="pair">
+        Sea level Pressure: <div class="info" id="seapressure"></div>
+      </div>
+      <div class="pair">
+        Visiblity:<div class="info" id="vis"></div>
+      </div>
+      <div class="pair" id="uv">
+        UV Index:<div class="info" id="uvIndex"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Getting the weather by latitude and longitude: -->
+  <div class="box" id="byGPS">
+    <p>
+      Getting the weather by <b>latitude</b> and <b>longitude</b>:
+    </p>
+    <p>This method will retrieve the weather from the nearest station to the provided coordinates.</p>
+    <div class="container">
+      <div class="sub-con">
+        <div class="item">
+          Latitude:<input type="number" id="lat" value="48.66634" type="number">
+        </div>
+        <div class="item">
+          Longitude:<input id="lon" value="-123.41933" type="number">
+        </div>
+        <div class="item">
+          <button type="button" onclick="search('gps')" id="gpsbtn">Search!</button>
+        </div>
+        <div class="item">
+          <button type="button" onclick="clearInput('gps')" id="cleargps">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- getting location info by country, state, city -->
+  <div class="box" id="byCity">
+    <p>
+      Getting the weather by <b>Country</b>, the <b>State/Province</b> and the <b>City</b>:
+    </p>
+    <p>
+      There may be multiple cities with the same name in a given country, if this is your case then enter the <b>state/province</b> too.
+    </p>
+
+    <div class="container">
+      <div class="sub-con">
+        <div class="item">
+          Country:<input type="text" id="country" value="UK">
+        </div>
+        <div class="item">
+          State/Province:<input type="text" id="state" placeholder="England">
+        </div>
+        <div class="item">
+          City:<input type="text" id="city" value="London">
+        </div>
+        <div class="item">
+          <button type="button" id="citybtn" onclick="search('city')">Search!</button>
+        </div>
+        <div class="item">
+          <button type="button" id="clearcity" onclick="clearInput('city')">Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright stuff -->
+  <div id="copyright">
+    &copy <a href="http://webhome.csc.uvic.ca/~thomasbourgeois/Project1/home.html" target="_blank">Thomas Bourgeois</a>, 2021
+
+</body>
+</body>
+
+</html>
