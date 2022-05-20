@@ -30,7 +30,7 @@ function showTime() {
   // conditions for handling 24hr time into 12hr
   if (hours <= 12) {
     // if it's morning
-    if (hours == 0) { // Data() counts 12am as 0 hours.
+    if (hours == 0) { // Date() counts 12am as 0 hours.
       hours = "12";
     }
     pod = "am"

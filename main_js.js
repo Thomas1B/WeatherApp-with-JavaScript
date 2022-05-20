@@ -5,14 +5,17 @@ November 2021
 
 
 JavaScript program to display weather collected by connecting to an API.
-API being used is from https://www.weatherbit.io/
+API being used is from https://www.weatherbit.io/.
+
+It's free within limits.
+
 */
 
 
-let apiKey = "your_API_Key"; // Your api key
+let apiKey = "Your_API_KEY"; // Your api key
 let baseURL = "https://api.weatherbit.io/v2.0/current?"; // Main url link
 
-// function to show timeleft before next class is lowed
+// function to show time left before next class is allowed
 function timeLeft(info) {
 	let timeLeft = info.calls_reset_ts - Date.now();
 	let date = new Date(timeLeft);
@@ -21,16 +24,15 @@ function timeLeft(info) {
 	let mins = date.getMinutes();
 	let secs = date.getSeconds();
 
-	if (hours == 0) {
+	if (hours == 0) { // Date() counts 12am as 0 hours.
 		hours = "12";
-	} else if (hours > 12) {
+	} else if (hours > 12) { // afternoon time
 		hours %= 12;
 	}
-	if (mins < 10) {
+	if (mins < 10) { // text formatting
 		mins = "0" + mins;
 	}
-
-	if (secs < 10) {
+	if (secs < 10) { // text formatting
 		secs = "0" + secs;
 	}
 
@@ -53,7 +55,7 @@ function search(type) {
 			callsLeft = 500;
 			limit = 500;
 		}
-		let text = "Remaining Calls: " + (callsLeft) + " of " + limit;
+		let text = "Remaining Calls: " + (callsLeft - 1) + " of " + limit;
 		$("#calls").append(text).show();
 		$("#rightVL").show(); // showing vertical line
 
@@ -117,20 +119,6 @@ function getDataByCity(country, state, city, baseURL) {
 // Getting data by Coordinates
 function getDataByGPS(lat, lon, baseURL) {
 	let url = baseURL + "lat=" + lat + "&lon=" + lon + "&key=" + apiKey;
-
-	// $.get(url, function(data, status, xhr) {
-	// 	if (!status == "success") { // Error connecting to api
-	// 		let text = "ERROR LOADING DATA!<br>Check your entered information.";
-	// 		$("#showinfo").hide();
-	// 		$("#error_msg").html(text);
-	// 		$("#error_msg").show();
-	// 	} else {
-	// 		$("#error_msg").hide();
-	//
-	// 		data = data.data[0]
-	// 		show(data, "gps");
-	// 	}
-	// });
 
 	$.ajax({
 		url: url,
